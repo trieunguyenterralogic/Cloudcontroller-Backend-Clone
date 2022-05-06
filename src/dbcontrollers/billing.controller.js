@@ -231,23 +231,19 @@ async function db_get_billing_report(tenant_id, params) {
 
 
 async function db_update_billing(tenant_id, billing_data, transaction) {
-    billing_data = JSON.stringify(billing_data)
-    billing_data = JSON.parse(billing_data)
-    logger.debug('the billing data in the controller file is',billing_data)
     let trans = null
-    let pid=await db_billing_pid_exist(billing_data['pid'])
-    logger.debug('the pid in the billing is',pid)
+    let id= billing_data['id'] ? await db_billing_pid_exist(billing_data['id']) : null;
     if (typeof transaction !== "undefined") {
         logger.debug("Transacation is not undefined")
         trans = transaction["transaction"]
     }
     let billing
-    if(!pid){
+    if(!id){
         billing=await Billing.create(billing_data,{transaction:trans})
     } else {
         billing=await Billing.update(billing_data,{
             where:{
-                pid:billing_data['pid']
+                id:billing_data['id']
             }
         })
     }
@@ -255,17 +251,17 @@ async function db_update_billing(tenant_id, billing_data, transaction) {
    
   }
 
-  async function db_billing_pid_exist(pid) {
+  async function db_billing_pid_exist(id) {
     let billing_data
     try {
         billing_data = await Billing.count({
             where: {
-                pid: pid,
+                id: id,
             },
             raw: true,
         })
     } catch (err) {
-        throw new Error("tasks  " + pid + "not found Err:" + err)
+        throw new Error("tasks  " + id + "not found Err:" + err)
     }
     return billing_data
 }
