@@ -28,6 +28,7 @@ async function getBilling(req, res, next) {
         billing = await db_get_billing_report(tenant_id, req.query)
     } catch (err) {
         logger.debug("Billing list error " + err)
+        console.log(err);
         req.apiRes = BILLING_CODE["1"]
         req.apiRes["error"] = {
             error: "ERROR IN FETCHING BILLING INVENTORY",

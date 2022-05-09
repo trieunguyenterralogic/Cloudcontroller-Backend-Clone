@@ -282,15 +282,7 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: true,
                 defaultValue: "",
                 comment: "Item revenue code",
-            },
-            status: {
-                type: DataTypes.STRING(255),
-                allowNull: true,
-            },
-            billing_uuid: {
-                type: DataTypes.STRING(255),
-                allowNull: true,
-            },
+            }
         },
         {
             sequelize,
