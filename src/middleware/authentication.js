@@ -198,7 +198,6 @@ var validateSession = async function (req, res, next) {
             }
         }
     } else {
-        console.log("heeredsd")
         // The Token Key itself is not present - Needs Authentication
         logger.debug("The Token key was not present for " + req.path)
         // Respond JSON for Session Expiry

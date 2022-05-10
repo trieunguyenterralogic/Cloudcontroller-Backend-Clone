@@ -74,7 +74,7 @@ const prepareDataForCreateBilling = (postData) => {
         return false;
     }
     if(postData.code == constant.CPT_CODE.CPT_99453){
-        if(!postData.time_spent){
+        if(postData.time_spent != null && postData.time_spent != ''){
             return false;
         }
         params = {time_spent: postData.time_spent};
