@@ -46,8 +46,13 @@ var validateSession = async function (req, res, next) {
         logger.debug("Ignoring path for authentication check URL - " + req.path)
         return next()
     }
-    if (req.headers.accesstoken) {
-        const accessToken = req.headers.accesstoken
+    if (req.headers.accesstoken || req.headers.authorization) {
+        let accessToken = req.headers.accesstoken
+        if(!accessToken && req.headers.authorization){
+            accessToken = req.headers.authorization;
+            accessToken = accessToken.split(' ');
+            accessToken = accessToken[1];
+        }
         let JwtDecoded = null
         currTime = Date.now()
         try {
@@ -193,6 +198,7 @@ var validateSession = async function (req, res, next) {
             }
         }
     } else {
+        console.log("heeredsd")
         // The Token Key itself is not present - Needs Authentication
         logger.debug("The Token key was not present for " + req.path)
         // Respond JSON for Session Expiry
