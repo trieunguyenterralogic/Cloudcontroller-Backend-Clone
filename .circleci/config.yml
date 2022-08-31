@@ -11,8 +11,7 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - run: node -v 
-      - run: npm -v
+      - run: npm install
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
