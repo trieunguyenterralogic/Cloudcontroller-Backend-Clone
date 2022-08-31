@@ -16,7 +16,7 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - run: git pull
+      - run: git pull https://github.com/trieunguyenterralogic/Cloudcontroller-Backend-Clone.git circleci-project-setup
   build:
     executor: node/default
     steps:
