@@ -12,11 +12,16 @@ jobs:
     steps:
       - checkout
       - run: npm install
+  pull:
+    executor: node/default
+    steps:
+      - checkout
+      - run: git pull https://github.com/trieunguyenterralogic/Cloudcontroller-Backend-Clone.git circleci-project-setup
   build:
     executor: node/default
     steps:
       - checkout
-      - run: npm build
+      - run: npm run build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -24,6 +29,9 @@ workflows:
   BE-Example:
     jobs:
       - install
+      - pull: 
+         requires:
+            - install
       - build:
           requires:
-            - install 
+            - pull 
